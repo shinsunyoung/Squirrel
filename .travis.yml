@@ -14,11 +14,17 @@ cache:
 
 script: "./gradlew clean build"
 
+before_deploy:
+  - zip -r Squirrel *
+  - mkdir -p deploy
+  - mv Squirrel.zip deploy/Squirrel.zip
+
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
     secret_access_key: $AWS_SECRET_KEY # Travis repo settings에 설정된 값
     bucket: squirrel-webservice-bucket # 6-3-3에서 생성한 S3 버킷
+    local_dir: deploy
     region: ap-northeast-2
     skip_cleanup: true
     acl: public_read
