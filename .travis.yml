@@ -12,6 +12,9 @@ cache:
     - '$HOME/.m2/repository'
     - '$HOME/.gradle'
 
+script: "./gradlew clean build" # 스크립트가 푸시가 됐을 때 실행시킬 명령어
+  # 이전에 있었던거 지우고 실행시키기 !!!! (out 폴더~~!!!)
+
 # master 브랜치에 PUSH 되었을때 수행하는 명령어입니다
 # 여기선 프로젝트 내부에 둔 gradlew을 통해 clean & build 를 수행합니다.
 
