@@ -12,13 +12,16 @@ cache:
     - '$HOME/.m2/repository'
     - '$HOME/.gradle'
 
-script: "./gradlew clean build"
+# 트래비스가 뭘 실행할까?
+script: "./gradlew clean build"  # 이전 의존성이 싹 날아감! -> 테스트랑 빌드를 같이 하는 것!
 
+# .zip파일로 압축함!
 before_deploy:
   - zip -r Squirrel *
   - mkdir -p deploy
   - mv Squirrel.zip deploy/Squirrel.zip
 
+# S3로 전송해준다.
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
@@ -32,6 +35,21 @@ deploy:
     on:
       repo: shinsunyoung/Squirrel #Github 주소
       branch: master
+
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
+    secret_access_key: $AWS_SECRET_KEY # Travis repo settings에 설정된 값
+    bucket: squirrel-deploy # S3 버킷
+    key: Squirrel.zip # 빌드 파일을 압축해서 전달
+    bundle_type: zip
+    application: springboot-webservice # 웹 콘솔에서 등록한 CodeDeploy 어플리케이션
+    deployment_group: squirrel-webservice-group # 웹 콘솔에서 등록한 CodeDeploy 배포 그룹
+    region: ap-northeast-2
+    wait-until-deployed: true
+    on:
+      repo: shinsunyoung/Squirrel
+      branch: master
+
 
 # CI 실행 완료시 메일로 알람
 notifications:
