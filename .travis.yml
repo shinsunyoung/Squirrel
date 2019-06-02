@@ -21,9 +21,6 @@ before_deploy:
   - mkdir -p deploy
   - mv Squirrel.zip deploy/Squirrel.zip
 
-before_install:
-  - chmod +x gradlew
-
 # S3로 전송해준다.
 deploy:
   - provider: s3
