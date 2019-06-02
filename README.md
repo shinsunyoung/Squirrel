@@ -18,8 +18,5 @@
 - Gradle
 
 ### 기능
-![1](https://user-images.githubusercontent.com/42836576/58707105-e93c2980-83ee-11e9-9a16-49f139dfab42.PNG)
-- 글 리스트를 볼 수 있다.
-
-![2](https://user-images.githubusercontent.com/42836576/58707207-2dc7c500-83ef-11e9-8108-b8c7d42e3b91.PNG)
-- 게시판에 글을 추가할 수 있다.
+- 글 리스트(Read)
+- 게시판에 글을 추가(Create)
